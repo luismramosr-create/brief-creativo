@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brief Creativo — Luis Miguel Ramos</title>
+  <meta name="description" content="Completa este brief creativo para comenzar el diseño de tu marca con Luis Miguel Ramos.">
+  <link rel="icon" type="image/png" href="logolr.png">
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111111;
+      --bg-soft: #1A1A1A;
+      --bg-input: #161616;
+      --border: #2A2A2A;
+      --text: #F5F5F5;
+      --text-soft: #888888;
+      --accent: #C9A961;
+      --accent-hover: #E0BE7A;
+      --radius: 8px;
+      --transition: 0.25s ease;
+      --error: #E57373;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* HEADER */
+    .header { text-align: center; margin-bottom: 72px; }
+    .logo-wrap { display: flex; justify-content: center; margin-bottom: 40px; }
+    .logo {
+      width: 72px; height: 72px; object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.05); }
+    .header h1 {
+      font-size: 42px; font-weight: 600;
+      letter-spacing: -0.5px; margin-bottom: 16px;
+    }
+    .subtitle {
+      color: var(--text-soft); font-size: 15px;
+      max-width: 520px; margin: 0 auto;
+    }
+
+    /* SECCIONES */
+    .form-section {
+      margin-bottom: 56px; padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-of-type { border-bottom: none; }
+    .section-title {
+      font-size: 13px; font-weight: 500; color: var(--accent);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px;
+    }
+
+    /* CAMPOS */
+    .field { margin-bottom: 28px; }
+    .field label {
+      display: block; font-size: 14px; font-weight: 500;
+      margin-bottom: 10px; color: var(--text);
+    }
+    .hint { font-size: 13px; color: var(--text-soft); margin-bottom: 12px; }
+    .hint.center { text-align: center; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    textarea {
+      width: 100%; padding: 14px 16px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text);
+      font-family: inherit; font-size: 15px;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    input:focus, textarea:focus {
+      outline: none; border-color: var(--accent); background: #1c1c1c;
+    }
+    input::placeholder, textarea::placeholder { color: #555; }
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* CHIPS */
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { position: relative; cursor: pointer; }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip span {
+      display: inline-block; padding: 8px 16px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: 999px; font-size: 14px; color: var(--text-soft);
+      transition: all var(--transition); user-select: none;
+    }
+    .chip:hover span { border-color: #444; color: var(--text); }
+    .chip input:checked + span {
+      background: var(--accent); border-color: var(--accent);
+      color: var(--bg); font-weight: 500;
+    }
+
+    /* PALETAS SUGERIDAS */
+    .palettes {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; margin-bottom: 28px;
+    }
+    .palette {
+      position: relative; cursor: pointer;
+      border: 2px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .palette:hover { border-color: #444; transform: translateY(-2px); }
+    .palette.selected { border-color: var(--accent); }
+    .palette-swatches {
+      display: grid; grid-template-columns: repeat(4, 1fr); height: 56px;
+    }
+    .palette-swatches span { display: block; height: 100%; }
+    .palette-label {
+      padding: 8px 12px; font-size: 12px; color: var(--text-soft);
+      background: var(--bg-soft); text-align: center; letter-spacing: 0.5px;
+    }
+    .palette.selected .palette-label { color: var(--accent); }
+
+    /* BOTONES PEQUEÑOS */
+    .actions-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+    }
+    .btn-mini {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-soft);
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-mini:hover {
+      border-color: var(--accent); color: var(--accent);
+      border-style: solid;
+    }
+    .btn-mini .icon { font-size: 15px; line-height: 1; }
+
+    /* SELECTOR DE COLOR LIBRE */
+    .color-pickers {
+      display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;
+    }
+    .color-picker {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; flex: 1; min-width: 100px;
+    }
+    .color-picker input[type="color"] {
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
+      width: 100%; height: 56px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-input); cursor: pointer; padding: 0;
+    }
+    .color-picker input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-picker input[type="color"]::-webkit-color-swatch {
+      border: none; border-radius: 6px;
+    }
+    .color-picker input[type="color"]::-moz-color-swatch {
+      border: none; border-radius: 6px;
+    }
+    .color-picker .hex-label {
+      font-size: 12px; color: var(--text-soft);
+      font-family: "SF Mono", Consolas, Monaco, monospace;
+      letter-spacing: 0.5px;
+    }
+    .color-picker .remove-color {
+      position: absolute; top: -8px; right: -8px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      color: var(--text-soft); font-size: 14px; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+    }
+    .color-picker .remove-color:hover {
+      background: var(--error); color: white; border-color: var(--error);
+    }
+
+    /* PREVIEW */
+    .color-preview {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 16px; background: var(--bg-soft);
+      border: 1px dashed var(--border); border-radius: var(--radius);
+      min-height: 56px; align-items: center; justify-content: center;
+    }
+    .color-preview .empty {
+      font-size: 13px; color: var(--text-soft); font-style: italic;
+    }
+    .preview-swatch {
+      width: 40px; height: 40px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform var(--transition);
+    }
+    .preview-swatch:hover { transform: scale(1.1); }
+
+    /* UPLOAD CLOUDINARY */
+    .upload-area {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 8px;
+      padding: 32px 20px;
+      background: var(--bg-input);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .upload-area:hover {
+      border-color: var(--accent);
+      background: #1a1a1a;
+    }
+    .upload-area .icon {
+      font-size: 28px; color: var(--accent); line-height: 1;
+    }
+    .upload-area .label {
+      font-size: 14px; font-weight: 500; color: var(--text);
+    }
+    .upload-area .sub {
+      font-size: 12px; color: var(--text-soft);
+    }
+    .uploaded-files {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;
+    }
+    .uploaded-item {
+      position: relative; width: 80px; height: 80px;
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .uploaded-item img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .uploaded-item .remove-file {
+      position: absolute; top: 4px; right: 4px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(0,0,0,0.75); color: white;
+      font-size: 12px; line-height: 1; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .uploaded-item .remove-file:hover { background: var(--error); }
+
+    /* BOTONES PRINCIPALES */
+    .submit-area { text-align: center; margin-top: 48px; }
+    .btn-primary {
+      background: var(--accent); color: var(--bg);
+      border: none; padding: 16px 48px;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.5px; border-radius: var(--radius); cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-secondary {
+      display: inline-block; margin-top: 24px;
+      padding: 12px 28px;
+      border: 1px solid var(--accent); color: var(--accent);
+      text-decoration: none; border-radius: var(--radius);
+      font-size: 14px; transition: all var(--transition);
+    }
+    .btn-secondary:hover { background: var(--accent); color: var(--bg); }
+
+    /* MENSAJE DE ÉXITO */
+    .success {
+      text-align: center; padding: 60px 24px;
+      animation: fadeIn 0.5s ease;
+    }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--accent); color: var(--bg); font-size: 32px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .success h2 { font-size: 28px; margin-bottom: 16px; }
+    .success p {
+      color: var(--text-soft); max-width: 480px;
+      margin: 0 auto 8px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center; padding: 32px 24px;
+      font-size: 13px; color: var(--text-soft);
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .container { padding: 48px 20px 40px; }
+      .header h1 { font-size: 32px; }
+      .header { margin-bottom: 48px; }
+      .logo { width: 60px; height: 60px; }
+      .btn-primary { width: 100%; padding: 16px 24px; }
+      .palettes { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+
+    <header class="header">
+      <div class="logo-wrap">
+        <img src="logolr.png" alt="Luis Miguel Ramos" class="logo">
+      </div>
+      <h1>Brief Creativo</h1>
+      <p class="subtitle">Cuéntame sobre tu proyecto. Mientras más detalle me des, mejor será el resultado. Tiempo estimado: 5 minutos.</p>
+    </header>
+
+    <form id="briefForm" novalidate>
+
+      <section class="form-section">
+        <h2 class="section-title">01 — Sobre ti</h2>
+
+        <div class="field">
+          <label for="nombre">Nombre del cliente *</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="field">
+          <label for="marca">Nombre de la marca / proyecto *</label>
+          <input type="text" id="marca" name="marca" required>
+        </div>
+        <div class="field">
+          <label for="email">Correo electrónico *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp / Teléfono</label>
+          <input type="tel" id="whatsapp" name="whatsapp">
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2 class="section-title">02 — La esencia de tu marca</h2>
+
+        <div class="field">
+          <label for="dedica">¿A qué se dedica tu negocio? *</label>
+          <textarea id="dedica" name="dedica" rows="4" required></textarea>
+        </div>
+        <div class="field">
+          <label for="publico">¿Quién es tu público objetivo?</label>
+          <textarea id="publico" name="publico" rows="3" placeholder="Edad, género, intereses, ubicación..."></textarea>
+        </div>
+        <div class="field">
+          <label>Palabras clave que definen tu marca *</label>
+          <p class="hint">Selecciona todas las que apliquen.</p>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="personalidad" value="Moderna"><span>Moderna</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Clásica"><span>Clásica</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Divertida"><span>Divertida</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Minimalista"><span>Minimalista</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Lujosa"><span>Lujosa</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Cercana"><span>Cercana</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Tecnológica"><span>Tecnológica</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Natural"><span>Natural</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Elegante"><span>Elegante</span></label>
+            <label class="chip"><input type="checkbox" name="personalidad" value="Audaz"><span>Audaz</span></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2 class="section-title">03 — Dirección visual</h2>
+
+        <div class="field">
+          <label for="transmitir">¿Qué debe transmitir tu logo? *</label>
+          <textarea id="transmitir" name="transmitir" rows="3" placeholder="Confianza, energía, calma, innovación, poder..." required></textarea>
+        </div>
+        <div class="field">
+          <label for="evitar">¿Qué debemos evitar a toda costa?</label>
+          <textarea id="evitar" name="evitar" rows="3" placeholder="Colores, formas o estilos que NO quieres ver."></textarea>
+        </div>
+        <div class="field">
+          <label>¿Dónde se usará el logo?</label>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="uso" value="Web"><span>Web</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Redes sociales"><span>Redes sociales</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Impresión"><span>Impresión</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Local físico"><span>Local físico</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Merchandising"><span>Merchandising</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Vehículos"><span>Vehículos</span></label>
+            <label class="chip"><input type="checkbox" name="uso" value="Facturas"><span>Facturas</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 04: COLORES -->
+      <section class="form-section">
+        <h2 class="section-title">04 — Colores</h2>
+
+        <div class="field">
+          <label>Inspiración: paletas sugeridas</label>
+          <p class="hint">Haz clic en la paleta que más te guste o pulsa "Generar aleatoria" para ver nuevas combinaciones.</p>
+          <div class="palettes" id="palettes"></div>
+        </div>
+
+        <div class="field">
+          <label>O elige tus propios colores</label>
+          <p class="hint">Añade tantos como quieras. Puedes combinar paletas y selector.</p>
+
+          <div class="actions-row">
+            <button type="button" class="btn-mini" id="btnAddColor">
+              <span class="icon">+</span> Añadir color
+            </button>
+            <button type="button" class="btn-mini" id="btnRandomColor">
+              <span class="icon">⟳</span> Generar paleta aleatoria
+            </button>
+          </div>
+
+          <div class="color-pickers" id="colorPickers"></div>
+        </div>
+
+        <div class="field">
+          <label>Tus colores seleccionados</label>
+          <div class="color-preview" id="colorPreview">
+            <span class="empty">Aún no has seleccionado colores.</span>
+          </div>
+          <input type="hidden" id="coloresFinales" name="coloresFinales" value="">
+        </div>
+      </section>
+
+      <!-- SECCIÓN 05: REFERENCIAS + CLOUDINARY -->
+      <section class="form-section">
+        <h2 class="section-title">05 — Referencias</h2>
+
+        <div class="field">
+          <label for="refLink">Link a tus referencias (Pinterest, Behance, Drive...)</label>
+          <p class="hint">Si prefieres, sube tus imágenes a un tablero y pega aquí el enlace.</p>
+          <input type="url" id="refLink" name="refLink" placeholder="https://...">
+        </div>
+
+        <div class="field">
+          <label>O sube tus imágenes aquí</label>
+          <p class="hint">Arrastra o haz clic para subir. Acepta JPG, PNG, GIF, WebP, PDF.</p>
+
+          <div class="upload-area" id="uploadArea">
+            <div class="icon">☁</div>
+            <div class="label">Subir imágenes de referencia</div>
+            <div class="sub">Se subirán de forma segura a Cloudinary</div>
+          </div>
+
+          <div class="uploaded-files" id="uploadedFiles"></div>
+          <div id="cloudinaryUrls"></div>
+        </div>
+
+        <div class="field">
+          <label for="refGusta">¿Qué te gusta de esas referencias?</label>
+          <textarea id="refGusta" name="refGusta" rows="3" placeholder="El color, la tipografía, la forma, la actitud..."></textarea>
+        </div>
+      </section>
+
+      <div class="submit-area">
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span class="btn-text">Enviar mi brief</span>
+          <span class="btn-loader" hidden>Enviando...</span>
+        </button>
+        <p class="hint center">Te responderé en menos de 24 horas.</p>
+      </div>
+
+    </form>
+
+    <div id="successMessage" class="success" hidden>
+      <div class="success-icon">✓</div>
+      <h2>¡Brief enviado con éxito!</h2>
+      <p>Recibí tu brief creativo. Voy a revisarlo con atención y te contactaré en menos de 24 horas para coordinar los siguientes pasos del proyecto.</p>
+      <a href="https://wa.me/5959842195687" class="btn-secondary" target="_blank" rel="noopener">Escribirme por WhatsApp</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Luis Miguel Ramos — Diseño Gráfico & Web</p>
+  </footer>
+
+  <script>
+    // ============================================
+    // CONFIGURACIÓN
+    // ============================================
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xoejvavb";
+    const CLOUDINARY_CLOUD_NAME = "eac4y4eb";
+    const CLOUDINARY_UPLOAD_PRESET = "brief_referencias";
+
+    // ============================================
+    // POOL DE PALETAS
+    // ============================================
+    const PALETAS = [
+      { nombre: "Dorado Elegante", colores: ["#C9A961", "#111111", "#F5F5F5", "#2A2A2A"] },
+      { nombre: "Océano Profundo",  colores: ["#0A2540", "#1E88E5", "#E0F7FA", "#F5F5F5"] },
+      { nombre: "Tierra Cálida",    colores: ["#8B5E3C", "#D9A66C", "#F2E8DC", "#3E2C1C"] },
+      { nombre: "Bosque Minimal",   colores: ["#1B4332", "#52796F", "#CAD2C5", "#F5F5F5"] },
+      { nombre: "Fucsia Moderno",   colores: ["#D81B60", "#F8BBD0", "#1A1A1A", "#FFFFFF"] },
+      { nombre: "Coral Suave",      colores: ["#FF6F61", "#FFE5D9", "#2C3E50", "#F5F5F5"] },
+      { nombre: "Lavanda Pro",      colores: ["#6A4C93", "#B8A9D9", "#F3EFFF", "#1A1A1A"] },
+      { nombre: "Monocromo",        colores: ["#000000", "#444444", "#CCCCCC", "#FFFFFF"] },
+      { nombre: "Verde Lima",       colores: ["#A8E063", "#56AB2F", "#1A1A1A", "#F5F5F5"] },
+      { nombre: "Atardecer",        colores: ["#FF7E5F", "#FEB47B", "#2C3E50", "#FFF5E1"] },
+      { nombre: "Azul Acero",       colores: ["#2C3E50", "#4A6572", "#B0BEC5", "#ECEFF1"] },
+      { nombre: "Rojo Pasión",      colores: ["#B71C1C", "#E57373", "#1A1A1A", "#F5F5F5"] },
+      { nombre: "Menta Fresca",     colores: ["#00BFA6", "#A7FFEB", "#1A1A1A", "#F5F5F5"] },
+      { nombre: "Naranja Creativo", colores: ["#FF6B00", "#FFC499", "#1A1A1A", "#FFFFFF"] },
+      { nombre: "Rosa Suave",       colores: ["#E91E63", "#FCE4EC", "#3E2723", "#FFF8F8"] },
+      { nombre: "Púrpura Real",     colores: ["#4A148C", "#9C27B0", "#EDE7F6", "#F5F5F5"] }
+    ];
+
+    const MAX_COLORES = 8;
+
+    // ============================================
+    // LÓGICA
+    // ============================================
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("briefForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const successMessage = document.getElementById("successMessage");
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // --------------------------------------------
+      // 1. PALETAS SUGERIDAS
+      // --------------------------------------------
+      const palettesContainer = document.getElementById("palettes");
+
+      function barajar(arr) {
+        const copia = [...arr];
+        for (let i = copia.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copia[i], copia[j]] = [copia[j], copia[i]];
+        }
+        return copia;
+      }
+
+      function renderizarPaletas() {
+        palettesContainer.innerHTML = "";
+        const elegidas = barajar(PALETAS).slice(0, 4);
+        elegidas.forEach((paleta) => {
+          const div = document.createElement("div");
+          div.className = "palette";
+          div.innerHTML = `
+            <div class="palette-swatches">
+              ${paleta.colores.map(c => `<span style="background:${c}"></span>`).join("")}
+            </div>
+            <div class="palette-label">${paleta.nombre}</div>
+          `;
+          div.addEventListener("click", () => aplicarPaleta(div, paleta.colores));
+          palettesContainer.appendChild(div);
+        });
+      }
+
+      // --------------------------------------------
+      // 2. SELECTOR DE COLORES DINÁMICO
+      // --------------------------------------------
+      const colorPickers = document.getElementById("colorPickers");
+      const colorPreview = document.getElementById("colorPreview");
+      const coloresFinalesInput = document.getElementById("coloresFinales");
+      let colores = [];
+
+      function generarHexAleatorio() {
+        return "#" + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, "0").toUpperCase();
+      }
+
+      function crearColorPicker(hex, esInicial = false) {
+        if (colores.length >= MAX_COLORES) {
+          alert("Máximo " + MAX_COLORES + " colores.");
+          return;
+        }
+        const id = "color_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+        const wrapper = document.createElement("div");
+        wrapper.className = "color-picker";
+        wrapper.innerHTML = `
+          <input type="color" id="${id}" value="${hex}">
+          <span class="hex-label">${hex.toUpperCase()}</span>
+          ${esInicial ? "" : '<button type="button" class="remove-color" title="Eliminar">×</button>'}
+        `;
+        const input = wrapper.querySelector("input");
+        const label = wrapper.querySelector(".hex-label");
+
+        input.addEventListener("input", () => {
+          label.textContent = input.value.toUpperCase();
+          const idx = Array.from(colorPickers.children).indexOf(wrapper);
+          colores[idx] = input.value.toUpperCase();
+          quitarSeleccionPaletas();
+          actualizarPreview();
+        });
+
+        const removeBtn = wrapper.querySelector(".remove-color");
+        if (removeBtn) {
+          removeBtn.addEventListener("click", () => {
+            const idx = Array.from(colorPickers.children).indexOf(wrapper);
+            colores.splice(idx, 1);
+            wrapper.remove();
+            actualizarPreview();
+          });
+        }
+
+        colorPickers.appendChild(wrapper);
+        colores.push(hex.toUpperCase());
+      }
+
+      function agregarColor(hex) {
+        if (colores.length >= MAX_COLORES) {
+          alert("Máximo " + MAX_COLORES + " colores.");
+          return;
+        }
+        crearColorPicker(hex, false);
+        actualizarPreview();
+      }
+
+      function aplicarPaleta(elemento, paletaColores) {
+        document.querySelectorAll(".palette").forEach(p => p.classList.remove("selected"));
+        elemento.classList.add("selected");
+
+        colorPickers.innerHTML = "";
+        colores = [];
+        paletaColores.slice(0, 3).forEach(hex => crearColorPicker(hex, true));
+        actualizarPreview();
+      }
+
+      function quitarSeleccionPaletas() {
+        document.querySelectorAll(".palette").forEach(p => p.classList.remove("selected"));
+      }
+
+      function actualizarPreview() {
+        if (colores.length === 0) {
+          colorPreview.innerHTML = '<span class="empty">Aún no has seleccionado colores.</span>';
+          coloresFinalesInput.value = "";
+          return;
+        }
+        colorPreview.innerHTML = colores
+          .map(c => `<div class="preview-swatch" style="background:${c}" title="${c}"></div>`)
+          .join("");
+        coloresFinalesInput.value = colores.join(", ");
+      }
+
+      // --------------------------------------------
+      // 3. BOTONES: AÑADIR Y ALEATORIA
+      // --------------------------------------------
+      document.getElementById("btnAddColor").addEventListener("click", () => {
+        agregarColor(generarHexAleatorio());
+      });
+
+      document.getElementById("btnRandomColor").addEventListener("click", () => {
+        colorPickers.innerHTML = "";
+        colores = [];
+        for (let i = 0; i < 3; i++) {
+          crearColorPicker(generarHexAleatorio(), true);
+        }
+        quitarSeleccionPaletas();
+        actualizarPreview();
+      });
+
+      // --------------------------------------------
+      // 4. INICIALIZAR
+      // --------------------------------------------
+      renderizarPaletas();
+      ["#C9A961", "#111111", "#F5F5F5"].forEach(hex => crearColorPicker(hex, true));
+      actualizarPreview();
+
+      // --------------------------------------------
+      // 5. CLOUDINARY UPLOAD WIDGET
+      // --------------------------------------------
+      const uploadArea = document.getElementById("uploadArea");
+      const uploadedFiles = document.getElementById("uploadedFiles");
+      const cloudinaryUrls = document.getElementById("cloudinaryUrls");
+      const archivosSubidos = [];
+
+      const cloudinaryWidget = cloudinary.createUploadWidget(
+        {
+          cloudName: CLOUDINARY_CLOUD_NAME,
+          uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+          sources: ["local", "url", "camera"],
+          multiple: true,
+          maxFiles: 10,
+          clientAllowedFormats: ["jpg", "jpeg", "png", "gif", "webp", "pdf"],
+          folder: "brief-referencias",
+          language: "es",
+          text: {
+            es: {
+              or: "o",
+              menu: {
+                files: "Subir archivos",
+                url: "Desde una URL",
+                camera: "Cámara",
+              },
+              local: {
+                browse: "Seleccionar",
+                dd_title_single: "Arrastra una imagen aquí",
+                dd_title_multi: "Arrastra las imágenes aquí",
+              },
+            },
+          },
+        },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            const info = result.info;
+            archivosSubidos.push({
+              url: info.secure_url,
+              publicId: info.public_id,
+              formato: info.format,
+            });
+
+            const item = document.createElement("div");
+            item.className = "uploaded-item";
+            item.innerHTML = `
+              <img src="${info.secure_url}" alt="Referencia">
+              <button type="button" class="remove-file" title="Eliminar">×</button>
+            `;
+            item.querySelector(".remove-file").addEventListener("click", () => {
+              const idx = archivosSubidos.findIndex(a => a.publicId === info.public_id);
+              if (idx > -1) archivosSubidos.splice(idx, 1);
+              item.remove();
+              actualizarInputsCloudinary();
+            });
+            uploadedFiles.appendChild(item);
+            actualizarInputsCloudinary();
+          }
+        }
+      );
+
+      function actualizarInputsCloudinary() {
+        cloudinaryUrls.innerHTML = "";
+        archivosSubidos.forEach((a, i) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "referencia_" + (i + 1);
+          input.value = a.url;
+          cloudinaryUrls.appendChild(input);
+        });
+      }
+
+      uploadArea.addEventListener("click", () => cloudinaryWidget.open());
+
+      // --------------------------------------------
+      // 6. ENVÍO DEL FORMULARIO
+      // --------------------------------------------
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const btnText = submitBtn.querySelector(".btn-text");
+        const btnLoader = submitBtn.querySelector(".btn-loader");
+        btnText.hidden = true;
+        btnLoader.hidden = false;
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(FORMSPREE_ENDPOINT, {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" },
+          });
+
+          if (response.ok) {
+            form.hidden = true;
+            successMessage.hidden = false;
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            throw new Error("Error en el envío");
+          }
+        } catch (error) {
+          alert("Hubo un problema al enviar tu brief. Por favor intenta de nuevo o escríbeme por WhatsApp.");
+          btnText.hidden = false;
+          btnLoader.hidden = true;
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
